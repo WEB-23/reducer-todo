@@ -24,19 +24,24 @@ export const reducer = (state = initialState, action) => {
       };
 
     case "TOGGLE_TODOS":
-      const toggleComplete = () => {
-        const updatedTodos = state.todos.map(todo => {
-          if (todo.id === action.payload) {
-            return { ...todo, completed: !todo.completed };
-          } else {
-            return todo;
-          }
-        });
-        return updatedTodos;
-      };
       return {
         ...state,
-        todos: [...state.todos, toggleComplete()]
+        todos: [...state.todos].map(todo => {
+          return todo.id === action.payload
+            ? {
+                ...todo,
+                completed: !todo.completed
+              }
+            : todo;
+        })
+      };
+
+    case "CLEAR_TODOS":
+      return {
+        ...state,
+        todos: state.todos.filter(todo => {
+          return todo.completed === false;
+        })
       };
 
     default:

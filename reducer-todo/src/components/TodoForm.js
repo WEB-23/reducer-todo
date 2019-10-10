@@ -30,6 +30,15 @@ const TodoForm = () => {
         >
           Add
         </button>
+
+        <button
+          onClick={e => {
+            e.preventDefault();
+            dispatch({ type: "CLEAR_TODOS" });
+          }}
+        >
+          Clear
+        </button>
       </form>
     </>
   );
